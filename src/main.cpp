@@ -13,6 +13,8 @@ const char* wifi_passwd = "olecka88";
 
 WiFiServer server(80);
 
+int rc_delay = 50;
+
 int init_wifi()
 {
   int retries = 0;
@@ -34,7 +36,8 @@ int init_wifi()
 
 void setup() {
   Serial.begin(115200);
-  
+  mySwitch.enableTransmit(4); //D2
+
   if (init_wifi() == WL_CONNECTED)
   {
     Serial.print("Connetted to ");
@@ -66,4 +69,46 @@ void loop() {
   String request = client.readStringUntil('\r');
   Serial.println(request);
   client.flush();
+
+  // on-off
+  if (request.indexOf("/power") != -1)
+  {
+    mySwitch.send(467718, 24);
+    mySwitch.send(467713, 24);
+    delay(rc_delay);
+  }
+  // down
+  if (request.indexOf("/down") != -1)
+  {
+    mySwitch.send(467718, 24);
+    delay(rc_delay);
+  }
+  // up
+  if (request.indexOf("/up") != -1)
+  {
+    mySwitch.send(467717, 24);
+    delay(rc_delay);
+  }
+  // 25%
+  if (request.indexOf("/25") != -1)
+  {
+    mySwitch.send(467721, 24);
+    delay(rc_delay);
+  }
+  // 50%
+  if (request.indexOf("/50") != -1)
+  {
+    mySwitch.send(467720, 24);
+    delay(rc_delay);
+  }
+  // 100%
+  if (request.indexOf("/100") != -1)
+  {
+    mySwitch.send(467719, 24);
+    delay(rc_delay);
+  }
+
+  client.println("HTTP/1.1 200 OK");
+  client.println("Content-Type: text/html");
+
 }
