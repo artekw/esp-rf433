@@ -70,6 +70,14 @@ void loop() {
   Serial.println(request);
   client.flush();
 
+// RC CODE from RC-SwitchReciver Demo
+// Received 467713 / 24bit Protocol: 1 // on-off
+// Received 467721 / 24bit Protocol: 1 // 25%
+// Received 467720 / 24bit Protocol: 1 // 50%
+// Received 467719 / 24bit Protocol: 1 // 100%
+// Received 467718 / 24bit Protocol: 1 // +
+// Received 467717 / 24bit Protocol: 1 // -
+
   // on-off
   if (request.indexOf("/power") != -1)
   {
