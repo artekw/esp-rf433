@@ -8,8 +8,8 @@
 
 RCSwitch mySwitch = RCSwitch();
 
-const char* wifi_ssid = "digi-led";
-const char* wifi_passwd = "olecka88";
+const char* wifi_ssid = "SSID";
+const char* wifi_passwd = "PASS";
 
 WiFiServer server(80);
 
@@ -117,6 +117,4 @@ void loop() {
   }
 
   client.println("HTTP/1.1 200 OK");
-  client.println("Content-Type: text/html");
-
 }
